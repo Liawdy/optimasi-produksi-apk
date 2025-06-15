@@ -15,11 +15,11 @@ st.sidebar.title("\U0001F4D8 Petunjuk Penggunaan")
 st.sidebar.markdown("""
 Aplikasi ini memiliki 5 model matematika industri:
 
-1. *Optimasi Produksi*
-2. *Model Persediaan EOQ*  
-3. *Model Antrian (M/M/1)*  
-4. *Turunan Parsial*  
-5. *Model Lain (Kebutuhan Bahan Baku)*
+1. **Optimasi Produksi**
+2. **Model Persediaan EOQ**  
+3. **Model Antrian (M/M/1)**  
+4. **Turunan Parsial**  
+5. **Model Lain (Kebutuhan Bahan Baku)**
 
 Masukkan data sesuai tab. Hasil & grafik akan muncul secara otomatis.
 """)
@@ -134,10 +134,10 @@ with tab3:
 
     # Input parameter
     lambd = st.number_input("📥 Tingkat Kedatangan (λ) - pelanggan/jam", min_value=0, value=2)
-    mu = st.number_input("⚙ Tingkat Pelayanan (μ) - pelanggan/jam", min_value=0, value=3)
+    mu = st.number_input("⚙️ Tingkat Pelayanan (μ) - pelanggan/jam", min_value=0, value=3)
 
     if lambd >= mu:
-        st.error("⚠ Sistem tidak stabil (λ ≥ μ). Harap pastikan λ < μ.")
+        st.error("⚠️ Sistem tidak stabil (λ ≥ μ). Harap pastikan λ < μ.")
     else:
         # Perhitungan
         rho = lambd / mu
@@ -149,12 +149,12 @@ with tab3:
 
         st.subheader("📈 Hasil Perhitungan")
         st.markdown(f"""
-        - *Tingkat Utilisasi (ρ):* {rho:.3f}
-        - *Rata-rata pelanggan dalam sistem (L):* {L:.3f}
-        - *Rata-rata dalam antrean (Lq):* {Lq:.3f}
-        - *Waktu dalam sistem (W):* {W:.3f} jam ≈ {W*60:.0f} menit
-        - *Waktu tunggu dalam antrean (Wq):* {Wq:.3f} jam ≈ {Wq*60:.0f} menit
-        - *Probabilitas sistem kosong (P₀):* {P0:.3f}
+        - **Tingkat Utilisasi (ρ):** {rho:.3f}
+        - **Rata-rata pelanggan dalam sistem (L):** {L:.3f}
+        - **Rata-rata dalam antrean (Lq):** {Lq:.3f}
+        - **Waktu dalam sistem (W):** {W:.3f} jam ≈ {W*60:.0f} menit
+        - **Waktu tunggu dalam antrean (Wq):** {Wq:.3f} jam ≈ {Wq*60:.0f} menit
+        - **Probabilitas sistem kosong (P₀):** {P0:.3f}
         """)
 
         # Tampilkan Rumus
@@ -200,7 +200,7 @@ with tab3:
 with tab4:
     st.header("4️⃣ Turunan Parsial")
     x, y = sp.symbols('x y')
-    fungsi = st.text_input("Masukkan f(x, y):", "x*3 + y + y*2")
+    fungsi = st.text_input("Masukkan f(x, y):", "x**3 + y + y**2")
 
     try:
         f = sp.sympify(fungsi)
@@ -222,7 +222,7 @@ with tab4:
         X, Y = np.meshgrid(np.linspace(x0-2, x0+2, 50), np.linspace(y0-2, y0+2, 50))
         f_np = sp.lambdify((x, y), f, 'numpy')
         Z = f_np(X, Y)
-        Z_tangent = float(f_val) + float(fx_val)(X - x0) + float(fy_val)(Y - y0)
+        Z_tangent = float(f_val) + float(fx_val)*(X - x0) + float(fy_val)*(Y - y0)
 
         fig = plt.figure(figsize=(10, 6))
         ax = fig.add_subplot(111, projection='3d')
@@ -231,7 +231,7 @@ with tab4:
         ax.set_title("f(x, y) dan Bidang Singgung di (x₀, y₀)")
         st.pyplot(fig)
     except:
-        st.error("Fungsi tidak valid. Gunakan format Python: x*2 + y*2")
+        st.error("Fungsi tidak valid. Gunakan format Python: x**2 + y**2")
 
 # =========================
 # TAB 5: Kebutuhan Bahan Baku
