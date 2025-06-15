@@ -22,15 +22,6 @@ with tab1:
     c1 = st.number_input("Keuntungan per unit produk X", value=40)
     c2 = st.number_input("Keuntungan per unit produk Y", value=60)
 
-    st.markdown("### Masukkan Titik Pojok Solusi")
-    titik1 = (0, 0)
-    x2 = st.number_input("Titik (0, Y): Y =", value=33.33)
-    y3 = st.number_input("Titik (X, 0): X =", value=50.0)
-
-    z1 = 0
-    z2 = c2 * x2
-    z3 = c1 * y3
-
     st.write("### 🔎 Hasil Perhitungan:")
     st.write(f"Z(0, 0) = {z1}")
     st.write(f"Z(0, {x2}) = {z2:,.0f}")
