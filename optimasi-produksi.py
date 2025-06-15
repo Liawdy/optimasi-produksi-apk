@@ -22,33 +22,46 @@ with tab1:
     c1 = st.number_input("Keuntungan per unit produk X", value=40)
     c2 = st.number_input("Keuntungan per unit produk Y", value=60)
 
-    st.write("### 🔎 Hasil Perhitungan:")
-    st.write(f"Z(0, 0) = {z1}")
-    st.write(f"Z(0, {x2}) = {z2:,.0f}")
-    st.write(f"Z({y3}, 0) = {z3:,.0f}")
+    # Titik pojok tetap dari studi kasus
+    titik1 = (0, 0)
+    titik2 = (0, 33.33)
+    titik3 = (50, 0)
 
+    # Hitung nilai Z untuk tiap titik pojok
+    z1 = c1 * titik1[0] + c2 * titik1[1]
+    z2 = c1 * titik2[0] + c2 * titik2[1]
+    z3 = c1 * titik3[0] + c2 * titik3[1]
+
+    st.write("### 🔎 Hasil Perhitungan:")
+    st.write(f"Z{titik1} = {z1:,.0f}")
+    st.write(f"Z{titik2} = {z2:,.0f}")
+    st.write(f"Z{titik3} = {z3:,.0f}")
+
+    # Solusi optimal
     z_opt = max(z1, z2, z3)
     if z_opt == z2:
-        solusi = f"(0, {x2})"
+        solusi = f"{titik2}"
     elif z_opt == z3:
-        solusi = f"({y3}, 0)"
+        solusi = f"{titik3}"
     else:
-        solusi = "(0, 0)"
+        solusi = f"{titik1}"
 
     st.success(f"💡 Solusi optimal: {solusi} dengan keuntungan maksimum sebesar Rp {z_opt:,.0f}")
 
+    # Visualisasi
     st.markdown("### 📊 Visualisasi Titik Pojok dan Fungsi Objektif")
     fig, ax = plt.subplots()
-    ax.plot([0, 0, y3], [0, x2, 0], 'bo', label="Titik Pojok")
-    ax.text(0, 0, ' (0,0)', fontsize=9)
-    ax.text(0, x2, f' (0,{x2})', fontsize=9)
-    ax.text(y3, 0, f' ({y3},0)', fontsize=9)
+    ax.plot([titik1[0], titik2[0], titik3[0]], [titik1[1], titik2[1], titik3[1]], 'bo', label="Titik Pojok")
+    ax.text(*titik1, f' {titik1}', fontsize=9)
+    ax.text(*titik2, f' {titik2}', fontsize=9)
+    ax.text(*titik3, f' {titik3}', fontsize=9)
 
-    ax.plot([0, y3], [x2, 0], 'r--', label='Garis Fungsi Objektif')
-    ax.set_xlim(-5, max(60, y3 + 10))
-    ax.set_ylim(-5, max(40, x2 + 10))
-    ax.set_xlabel("X (Produk 1)")
-    ax.set_ylabel("Y (Produk 2)")
+    # Garis fungsi objektif dari titik2 ke titik3 (visualisasi)
+    ax.plot([titik2[0], titik3[0]], [titik2[1], titik3[1]], 'r--', label='Garis Fungsi Objektif')
+    ax.set_xlim(-5, 60)
+    ax.set_ylim(-5, 40)
+    ax.set_xlabel("X (Produk Blender)")
+    ax.set_ylabel("Y (Produk Pemanggang Roti)")
     ax.set_title("Visualisasi Titik Pojok & Fungsi Objektif")
     ax.legend()
     st.pyplot(fig)
